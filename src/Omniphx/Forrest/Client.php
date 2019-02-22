@@ -187,7 +187,7 @@ abstract class Client
 
     private function handleRequest()
     {
-        $this->parameters['headers'] = $this->formatter->setHeaders();
+        $this->parameters['headers'] = $this->formatter->setHeaders($this->input->get('sfid'));
 
         if (isset($this->options['body'])) {
             $this->parameters['body'] = $this->formatter->setBody($this->options['body']);

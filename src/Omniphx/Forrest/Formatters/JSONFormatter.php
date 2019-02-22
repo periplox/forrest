@@ -16,7 +16,7 @@ class JSONFormatter implements FormatterInterface
         $this->settings        = $settings;
     }
 
-    public function setHeaders()
+    public function setHeaders($sfid = null)
     {
         $accessToken = $this->tokenRepository->get()['access_token'];
         $tokenType   = $this->tokenRepository->get()['token_type'];
@@ -24,6 +24,9 @@ class JSONFormatter implements FormatterInterface
         $this->headers['Accept']        = 'application/json';
         $this->headers['Content-Type']  = 'application/json';
         $this->headers['Authorization'] = "$tokenType $accessToken";
+        if ($sfid) {
+            $this->headers['Sforce-Auto-Assign'] = "false";
+        }
 
         $this->setCompression();
 

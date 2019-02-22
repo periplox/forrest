@@ -12,10 +12,10 @@ class LaravelSession extends LaravelStorageProvider
 
     protected $session;
 
-    public function __construct(Config $config, Session $session)
+    public function __construct(Config $config)
     {
         $this->path = $config->get('forrest.storage.path');
-        $this->session = $session;
+        // $this->session = $session;
     }
 
     /**
@@ -28,7 +28,9 @@ class LaravelSession extends LaravelStorageProvider
      */
     public function put($key, $value)
     {
-        return $this->session->put($this->path.$key, $value);
+        // return $this->session->put($this->path.$key, $value);
+        return session([$this->path.$key => $value]);
+
     }
 
     /**
@@ -44,7 +46,8 @@ class LaravelSession extends LaravelStorageProvider
             throw new MissingKeyException(sprintf('No value for requested key: %s', $key));
         }
 
-        return $this->session->get($this->path.$key);
+        // return $this->session->get($this->path.$key);
+        return session()->get($this->path.$key);
     }
 
     /**
@@ -56,6 +59,7 @@ class LaravelSession extends LaravelStorageProvider
      */
     public function has($key)
     {
-        return $this->session->has($this->path.$key);
+        // return $this->session->has($this->path.$key);
+        return session()->has($this->path.$key);
     }
 }
